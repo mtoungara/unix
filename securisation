@@ -1,0 +1,21 @@
+
+# Securisation
+
+# Automatisation ssh
+ssh-keygen -t rsa
+
+ssh-copy-id -i id_rsa.pub login@ip
+
+## Utiliser ce module pour éviter divers dénis de service attaques (DoS)
+# iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+# iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+# iptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/s -j ACCEPT
+
+#
+#iptables -t filter -A FORWARD -s 192.168.0.13/24 -j ACCEPT -o enp1s0
+# iptables -A FORWARD -s 192.168.0.0/24 -i enp0s25 -j ACCEPT
+
+route add -net 192.168.122.1 netmask 255.255.255.0 gw 192.168.0.14 dev enp0s25
+route add -net 192.168.122.126 netmask 255.255.255.0 gw 192.168.122.1 dev enp1s0
+
+$ sudo route add -net 192.168.122.1/24 gw 192.168.0.14 enp0s25
