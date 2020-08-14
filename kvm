@@ -1,0 +1,12 @@
+kvm
+qemu-img create -f qcow2 /home/astane/vms/fedora_server_image.img 6G
+kvm -m 256 -cdrom /home/astane/vms/Fedora-Server-dvd-x86_64-32-1.6.iso -boot d /home/astane/vms/fedora_server_image.img
+
+https://github.com/kubernetes/minikube/issues/828
+
+Requested operation is not valid: network 'default' is not active. Retrying. #828
+
+First time users need currently do:
+
+virsh net-autostart default
+virsh net-start default
